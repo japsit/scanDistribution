@@ -28,7 +28,7 @@ class HttpHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
         message = 'Endpoint for the service is ' \
-                  + 'http://' + HOSTNAME + '/' + VERSION + '/' + SERVICE + '/' + DEALERID
+                  + 'http://' + self.host + self.uri
         self.wfile.write(bytes(message, "utf8"))
 
     def _set_response(self):
@@ -68,6 +68,7 @@ class Main():
 
         # Read server variables
         self.host = server.get('HOSTNAME', '127.0.0.1')
+        self.handler.host = self.host
         self.port = int(server.get('PORT', '8000'))
 
         # Read EndPoint variables
